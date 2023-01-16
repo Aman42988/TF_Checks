@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: demo
+  name: demo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: demo
+  template:
+    metadata:
+      labels:
+        app: demo
+    spec:
+      containers:
+      - image: nanditasahu/spring-boot-application:latest
+        name: demo
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: demo
+  name: demo
+spec:
+  ports:
+  - port: 8080
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: demo
+  type: ClusterIP
