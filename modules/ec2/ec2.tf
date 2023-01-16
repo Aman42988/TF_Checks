@@ -27,7 +27,7 @@ resource "aws_instance" "web" {
 
    tags = {
     Name = "${var.name}-Terraform-Instance"
-    POD  = var.POD
+    ENV  = var.ENV
   }
  
   #tfsec:ignore:aws-ec2-enforce-http-token-imds 
