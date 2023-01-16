@@ -1,0 +1,27 @@
+name: SpringBoot Application CI and CD
+ 
+ 
+# Only trigger, when the build workflow succeeded
+on:
+  repository_dispatch:
+       types: [springbootworkflow]
+       
+jobs:
+  springboot-setup:
+    permissions:
+      id-token: write    # Job to connect to Identity Token to receive the token
+      contents: read     # Read access to the repository
+    runs-on: ubuntu-latest
+       
+    steps:
+    # Checkout Repository
+    - name : Check out Git Repository
+      uses: actions/checkout@v3 
+
+      
+    - name: Connecting GitHub Actions To AWS Using OIDC - Roles
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-region: ${{ secrets.AWS_DEFAULT_REGION }}
+        role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
+        role-session-name: github-actions-session
