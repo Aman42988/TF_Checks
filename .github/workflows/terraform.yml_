@@ -94,18 +94,14 @@ jobs:
          
     - name : Terragrunt Validate
       run: |
+          cd terraform_code
           terraform validate  
           
     - name: Terragrunt Plan 
       id: plan
       run: |
-       # Configuring Private SSH Keys to access Private GitHub Respository
-        eval `ssh-agent -s`
-        mkdir -p ~/.ssh
-        ssh-keyscan github.com >> ~/.ssh/known_hosts
-        ssh-add - <<< "${{ secrets.PRIVATE_SSH_KEY }}"
-    
-        terraform plan 
+         cd terraform_code
+         terraform plan 
       continue-on-error: true
       
     - name: Terragrunt Plan Status
@@ -115,6 +111,7 @@ jobs:
     - name: Terragrunt Apply Status
       id: apply
       run: |
+        cd terraform_code
         terragrunt apply -auto-approve
       continue-on-error: true
       
