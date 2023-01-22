@@ -217,3 +217,5 @@ jobs:
           rm Terrascan-Report-latest.txt
           kubectl apply -f spring-boot-application.yaml
           rm spring-boot-application.yaml
+          
+          
