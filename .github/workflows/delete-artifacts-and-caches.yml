@@ -1,0 +1,36 @@
+name: 'Delete Artifact and Caches every 3rd day'
+
+on:
+  schedule:
+    - cron: "0 0 */3 * *" # Trigger after every 3rd day
+
+jobs:
+  delete-artifacts:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: kolpav/purge-artifacts-action@v1
+        with:
+          token: ${{ secrets.CI_GITHUB_TOKEN }}
+          expire-in: 0 # Set this to 0 to delete all artifacts - which are 0 days old
+          
+  clear-cache:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clear cache
+        uses: actions/github-script@v6
+        with:
+          script: |
+            console.log("About to clear")
+            const caches = await github.rest.actions.getActionsCacheList({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+            })
+            for (const cache of caches.data.actions_caches) {
+              console.log(cache)
+              github.rest.actions.deleteActionsCacheById({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                cache_id: cache.id,
+              })
+            }
+            console.log("Clear completed")
