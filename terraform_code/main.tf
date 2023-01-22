@@ -26,3 +26,12 @@ module "ec2" {
   aws_security_group   = [module.security_group.sg_id]
   ENV                  = var.ENV
 }
+    
+module "ecr" {
+  source             = "../modules/ecr"
+  name               = "spring-boot-app"
+  tag_mutable        = var.tag_mutable
+  scan_on_push       = var.scan_on_push
+  encryption_type    = var.encryption_type
+}
+  

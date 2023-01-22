@@ -17,6 +17,14 @@ resource "aws_security_group" "allow_sg" {
     protocol    = "tcp"
     cidr_blocks = var.cidr_blocks
   }
+  
+  ingress {
+    description = "SonarQube Port from VPC"
+    from_port   = 9000
+    to_port     = 9000
+    protocol    = "tcp"
+    cidr_blocks = var.cidr_blocks
+  }
 
   egress {
     description      = "TLS from VPC"
