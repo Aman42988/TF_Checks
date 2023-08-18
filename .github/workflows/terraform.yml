@@ -53,7 +53,7 @@ jobs:
       - name: Run Tfsec
         uses: aquasecurity/tfsec-action@v1.0.0
 
- terraform-setup:
+  terraform-setup:
     permissions:
       id-token: write    # Job to connect to Identity Token to receive the token
       contents: read     # Read access to the repository
