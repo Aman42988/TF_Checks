@@ -16,7 +16,7 @@ data "aws_ami" "ubuntu_22_0" {
 resource "aws_instance" "web" {
   ami                    = data.aws_ami.ubuntu_22_0.id
   instance_type          = var.instance_type
-  key_name               = "${var.name}-keypair"
+  key_name               = "ansible"
   vpc_security_group_ids = var.aws_security_group
 
   root_block_device {
