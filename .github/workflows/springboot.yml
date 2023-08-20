@@ -81,7 +81,7 @@ jobs:
           
     - name: Code Scan Analysis - SonarQube
       run: |
-          ./gradlew sonarqube \
+          ./gradlew sonar \
           -Dsonar.projectKey=${{ secrets.SONAR_PROJECT_KEY }} \
           -Dsonar.host.url=http://${{ steps.hostname.outputs.ec2_ip }}:9000 \
           -Dsonar.login=${{ secrets.SONAR_TOKEN }}
