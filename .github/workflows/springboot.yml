@@ -198,12 +198,11 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y awscli
           aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | docker login --username AWS --password-stdin ${{ secrets.AWS_ACCOUNT }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com
-          ECR_REGISTRY = `${{ secrets.AWS_ACCOUNT }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com`
+          ECR_REGISTRY=`${{ secrets.AWS_ACCOUNT }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com`
           docker pull $ECR_REGISTRY/${{ secrets.ECR_REPOSITORY }}:$IMAGE_TAG
           docker images
           sudo trivy image $ECR_REGISTRY/${{ secrets.ECR_REPOSITORY }}:$IMAGE_TAG > Trivy-Report-latest.txt
           aws s3 cp Trivy-Report-latest.txt ${{ secrets.S3_TRIVY_BUCKET_PATH }}
-          rm Trivy-Report-latest.txt
           
     - name: Scanning yaml files using Terrascan and Deploying SpringBoot Application in Miniube Cluster
       uses: appleboy/ssh-action@v0.1.6
@@ -215,9 +214,8 @@ jobs:
         script: |
           terrascan scan > Terrascan-Report-latest.txt || echo done
           aws s3 cp Terrascan-Report-latest.txt ${{ secrets.S3_TERRASCAN_BUCKET_PATH }}
-          rm Terrascan-Report-latest.txt
           kubectl apply -f spring-boot-application.yaml
-          rm spring-boot-application.yaml
+          
           
           
 
