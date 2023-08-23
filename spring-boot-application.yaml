@@ -15,7 +15,7 @@ spec:
         app: demo
     spec:
       containers:
-      - image: 092957218329.dkr.ecr.us-east-1.amazonaws.com/spring-boot-app:latest
+      - image: 084862505718.dkr.ecr.us-east-1.amazonaws.com/spring-boot-app:latest
         name: demo
 ---
 apiVersion: v1
