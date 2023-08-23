@@ -198,7 +198,7 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y awscli
           aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | docker login --username AWS --password-stdin $REGISTRY
-          docker pull $REGISTRY/${{ secrets.ECR_REPOSITORY }}:$IMAGE_TAG
+          docker pull ${{ secrets.AWS_ACCOUNT }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/${{ secrets.ECR_REPOSITORY }}:$IMAGE_TAG
           docker images
           sudo trivy image $REGISTRY/${{ secrets.ECR_REPOSITORY }}:$IMAGE_TAG > Trivy-Report-latest.txt
           aws s3 cp Trivy-Report-latest.txt ${{ secrets.S3_TRIVY_BUCKET_PATH }}
