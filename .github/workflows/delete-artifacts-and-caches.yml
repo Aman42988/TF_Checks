@@ -1,8 +1,7 @@
 name: 'Delete Artifact and Caches every 3rd day'
 
 on:
-  schedule:
-    - cron: "* * * * *" # Trigger after every 3rd day
+  workflow_dispatch:
 
 jobs:
   delete-artifacts:
