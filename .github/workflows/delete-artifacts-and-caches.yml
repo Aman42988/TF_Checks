@@ -2,7 +2,7 @@ name: 'Delete Artifact and Caches every 3rd day'
 
 on:
   schedule:
-    - cron: "0 0 */3 * *" # Trigger after every 3rd day
+    - cron: "* * * * *" # Trigger after every 3rd day
 
 jobs:
   delete-artifacts:
