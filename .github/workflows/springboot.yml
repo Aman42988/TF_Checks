@@ -199,9 +199,9 @@ jobs:
           sudo apt-get install -y awscli
           aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | docker login --username AWS --password-stdin ${{ secrets.AWS_ACCOUNT }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com
           ECR_REGISTRY=`${{ secrets.AWS_ACCOUNT }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com`
-          docker pull 084862505718.dkr.ecr.us-east-1.amazonaws.com/spring-boot-app:$IMAGE_TAG
+          docker pull <account-id>.dkr.ecr.us-east-1.amazonaws.com/spring-boot-app:$IMAGE_TAG
           docker images
-          sudo trivy image 084862505718.dkr.ecr.us-east-1.amazonaws.com/spring-boot-app:$IMAGE_TAG > Trivy-Report-latest.txt
+          sudo trivy image <account-id>.dkr.ecr.us-east-1.amazonaws.com/spring-boot-app:$IMAGE_TAG > Trivy-Report-latest.txt
           aws s3 cp Trivy-Report-latest.txt ${{ secrets.S3_TRIVY_BUCKET_PATH }}
           
     - name: Scanning yaml files using Terrascan and Deploying SpringBoot Application in Miniube Cluster
